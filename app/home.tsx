@@ -5,7 +5,8 @@ import Product from '@/components/Product'
 import { contact } from '@/components/res/data'
 import { Ionicons } from '@expo/vector-icons'
 // import { TouchableOpacity } from 'react-native-gesture-handler'
-import { useNavigation } from 'expo-router'
+import { router, useNavigation } from 'expo-router'
+import { forceTouchGestureHandlerProps } from 'react-native-gesture-handler/lib/typescript/handlers/ForceTouchGestureHandler'
 
 const home = () => {
   const nav = useNavigation()
@@ -31,9 +32,6 @@ const home = () => {
           <TouchableOpacity onPress={() => { nav.navigate("cart") }}>
             <Ionicons name='cart-outline' size={30} color={"red"} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => { nav.navigate("login") }}>
-            <Text style={styles.logText}>login</Text>
-          </TouchableOpacity>
         </View>
 
 
@@ -56,8 +54,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center"
   },
-  logText: {
-    color: "white"
-  }
-
 })
+   
+
+
+
+
+

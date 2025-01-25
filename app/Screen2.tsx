@@ -2,18 +2,23 @@ import { Pressable, StyleSheet, Text, View,Image, TouchableOpacity } from 'react
 import React, { useState } from 'react'
 
 import { useRoute } from '@react-navigation/native'
+import { useLocalSearchParams } from 'expo-router'
 
 const Screen2 = (props) => {
-  const route = useRoute()
   const [x, setX] = useState(1)
+
+  const {data}  = useLocalSearchParams?.()
+  const route = data ? JSON.parse(data) : {}
+  console.log("hellow screen2" , data);
+  
 
   return (
     <View style={styles.v}>
-      <Image source={route.params.imag}style={styles.img }/>
-      <Text style={styles.g}>{route.params.price}</Text>
+     <Image source={route.imag}style={styles.img }/>
+      <Text style={styles.g}>{"route.params.price"}</Text>
 
 
-      <View style={styles.n}>
+     <View style={styles.n}> 
         <Pressable onPress={()=>setX(x+1)} >
         <Text style={styles.text}>+</Text>
         </Pressable>    
@@ -27,14 +32,14 @@ const Screen2 = (props) => {
         }}>     
         
         <Text style={styles.text}>- </Text> 
-        </Pressable>
+        </Pressable>  b
       </View>
-      <Text style={styles.g}>{route.params.number}</Text>
+      <Text style={styles.g}>{route.number}</Text>
 
-      <Text style={styles.ffd}>{route.params.price*x}₪</Text>
+      <Text style={styles.ffd}>{route.price*x}₪</Text>
       <TouchableOpacity>
         <Text style={styles.jn}>add to crat</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> 
     </View>
   )
 

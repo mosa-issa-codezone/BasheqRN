@@ -1,32 +1,42 @@
 import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { useNavigation } from 'expo-router'
+import { login } from '@/res/api'
 
 const Login = () => {
-  const [userName, setUserName] = useState('')
+  const [phone, setPhone] = useState('')
   const [password, setPassword] = useState("")
 
   const nav = useNavigation()
 
   const logUser = () => {
-    if (userName === "hhh" && password === "123") {
-      nav.navigate("home")
-    }
-    else {
-      Alert.alert("userName or password are not valid")
-    }
+   const body={
+    phone:phone,
+    password:password
+   }
+login(body)
+.then((response)=>{
+  console.log("login res:" , response);
+  
+  if(response?.success==true){
+    nav.navigate('home')
+  }
+  else{
+    alert('alssma 8lt')
+  }
+})
   }
 
   return (
     <View style={styles.container}>
-      <TextInput onChangeText={(e) => setUserName(e)} style={styles.input} placeholder='userName' />
+      <TextInput onChangeText={(e) => setPhone(e)} style={styles.input} placeholder='phone' />
       <TextInput secureTextEntry onChangeText={(e) => setPassword(e)} style={styles.input} placeholder='password' />
       <TouchableOpacity onPress={logUser}>
         <View style={styles.loginContainer}>
           <Text style={styles.loginTxt}>login</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => nav.navigate("register")}>
+      <TouchableOpacity onPress={() => nav.navigate("/home")}>
         <Text>create new account</Text>
       </TouchableOpacity>
     </View>
