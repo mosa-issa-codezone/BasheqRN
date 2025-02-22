@@ -1,9 +1,16 @@
 // export const baseUrl = "https://basheq-server.onrender.com"
-export const baseUrl = " http://localhost:8000"
+export const baseUrl = "https://basheq-server.onrender.com"
 
 
 export const login = async (body) => {
     const url = "/Login";
+
+    return await fetchApi(url, "POST", JSON.stringify(body));
+};
+
+
+export const createUser = async (body) => {
+    const url = "/createUser";
 
     return await fetchApi(url, "POST", JSON.stringify(body));
 };
@@ -23,6 +30,13 @@ export const fetchApi = async (route, method, body) => {
             console.error("fetch Error", error?.message);
         });
 }
+
+
+
+
+
+
+
 
 
 

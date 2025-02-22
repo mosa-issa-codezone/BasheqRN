@@ -1,28 +1,21 @@
-import { Image, Pressable, StyleSheet, Text, Touchable, TouchableOpacity, View } from 'react-native'
+import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { useNavigation } from 'expo-router'
 
-
 const Product = (props) => {
   const nav = useNavigation()
-
-  // const {nav} = props
-
   const data = JSON.stringify(props)
-  // console.log("props", nav.getState());
-
 
   return (
     <TouchableOpacity style={styles.card} onPress={() => {
-      nav.navigate('Screen2' , {data})
-    }} >
-      <View style={styles.A}>
-        <Text style={styles.n1n}>{props.number}</Text>
-        <Text style={styles.nn}>{props.price}</Text>
+      nav.navigate('Screen2', { data })
+    }}>
+      <View style={styles.imageContainer}>
+        <Image style={styles.image} source={props.imag} />
       </View>
-
-      <View style={styles.img}>
-        <Image style={styles.IMG} source={props.imag} />
+      <View style={styles.infoContainer}>
+        <Text style={styles.number}>{props.number}</Text>
+        <Text style={styles.price}>{props.price}₪</Text>
       </View>
     </TouchableOpacity>
   )
@@ -31,52 +24,51 @@ const Product = (props) => {
 export default Product
 
 const styles = StyleSheet.create({
-
   card: {
-    flexDirection: 'row',
-    margin: 10,
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    margin: 15,
+    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: "black",
-    borderBottomWidth: 1,
-    borderColor: 'white'
-
+    backgroundColor: "#fff", // خلفية بيضاء أنيقة
+    borderRadius: 20, // حواف مستديرة بزاوية أكبر
+    padding: 15,
+    shadowColor: "#000", 
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.15,
+    shadowRadius: 10,
+    elevation: 5, // إضافة ظل لمنح عمق أكثر
+    overflow: 'hidden', // لمنع التداخل مع الحواف
   },
-
-  nn: {
-    fontSize: 20,
-    color: "black",
-    backgroundColor: "white",
-    borderRadius: 5,
-    width: 60,
-    textAlign: "center",
-    marginRight: "auto",
-    marginBottom: 25,
-    marginTop: 1,
+  imageContainer: {
+    height: 180, // جعل الصورة أكبر
+    width: 180,
+    borderRadius: 15, // حواف مستديرة للصورة
+    overflow: 'hidden',
+    marginBottom: 20, // زيادة المسافة بين الصورة والمعلومات
   },
-  IMG: {
-    height: '90%',
+  image: {
+    height: '100%',
     width: '100%',
-    borderRadius: 40,
-
+    borderRadius: 15, // نفس الحواف المستديرة للصورة
+    objectFit: 'cover', // التأكد من تغطية الصورة بشكل جيد
   },
-
-
-  img: {
-    height: 200,
-    width: 200,
-    borderRadius: 10,
-    borderWidth: 2,
-
+  infoContainer: {
+    alignItems: 'center',
   },
-  n1n: {
-    color: "red",
-    fontSize: 28
-  }
+  number: {
+    color: "#333", // لون النص أكثر دكانة
+    fontSize: 24, // تكبير النص
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  price: {
+    fontSize: 20,
+    color: "#fff", // النص أبيض
+    backgroundColor: "#ff6f61", // لون سعر متدرج أحمر زاهي
+    borderRadius: 30,
+    paddingVertical: 6,
+    paddingHorizontal: 15,
+    textAlign: "center",
+    fontWeight: '600', // جعل الخط أكثر سمكًا
+  },
 })
-
-
-
-
-
-

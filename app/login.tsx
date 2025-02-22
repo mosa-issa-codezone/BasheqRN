@@ -10,34 +10,47 @@ const Login = () => {
   const nav = useNavigation()
 
   const logUser = () => {
-   const body={
-    phone:phone,
-    password:password
-   }
-login(body)
-.then((response)=>{
-  console.log("login res:" , response);
-  
-  if(response?.success==true){
-    nav.navigate('home')
-  }
-  else{
-    alert('alssma 8lt')
-  }
-})
+    const body = {
+      phone: phone,
+      password: password
+    }
+    login(body)
+      .then((response) => {
+        console.log("login res:", response);
+
+        if (response?.success == true) {
+          nav.navigate('home')
+        } else {
+          alert('הכניסה נכשלה')
+        }
+      })
   }
 
   return (
     <View style={styles.container}>
-      <TextInput onChangeText={(e) => setPhone(e)} style={styles.input} placeholder='phone' />
-      <TextInput secureTextEntry onChangeText={(e) => setPassword(e)} style={styles.input} placeholder='password' />
+      <Text style={styles.title}>התחברות</Text>
+
+      <TextInput
+        onChangeText={(e) => setPhone(e)}
+        style={styles.input}
+        placeholder='טלפון'
+        keyboardType='phone-pad'
+      />
+      <TextInput
+        secureTextEntry
+        onChangeText={(e) => setPassword(e)}
+        style={styles.input}
+        placeholder='סיסמה'
+      />
+      
       <TouchableOpacity onPress={logUser}>
         <View style={styles.loginContainer}>
-          <Text style={styles.loginTxt}>login</Text>
+          <Text style={styles.loginTxt}>התחבר</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => nav.navigate("/home")}>
-        <Text>create new account</Text>
+
+      <TouchableOpacity onPress={() => nav.navigate("register")}>
+        <Text style={styles.createAccountTxt}>צור חשבון חדש</Text>
       </TouchableOpacity>
     </View>
   )
@@ -49,27 +62,51 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: "#e8f4f8", // خلفية هادئة
+    padding: 25,
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#007aff',
+    marginBottom: 30,
   },
   input: {
-    borderWidth: 1,
-    padding: 10,
-    fontSize: 15,
-    width: "70%",
-    marginTop: 50,
+    width: "90%",
+    padding: 15,
+    fontSize: 16,
+    marginBottom: 20,
+    borderRadius: 10,
+    backgroundColor: "#fff",
+    borderColor: "#007aff",
+    borderWidth: 2,
+    shadowColor: "#000", // إضافة ظل خفيف للحقل النصي
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
   },
   loginTxt: {
-    fontSize: 30,
-    color: "white"
+    fontSize: 20,
+    color: "white",
+    fontWeight: '600',
   },
   loginContainer: {
-    backgroundColor: 'blue',
-    marginTop: 20,
-    padding: 10,
-    width: 200,
+    backgroundColor: '#007aff', // اللون الأزرق الجذاب
+    padding: 15,
+    width: '80%',
     alignItems: 'center',
-    borderRadius: 20
-
-  }
+    borderRadius: 25,
+    marginBottom: 25,
+    shadowColor: "#000", // ظل للزر
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 4, // تأثير ظل على النظام
+  },
+  createAccountTxt: {
+    fontSize: 16,
+    color: "#007aff",
+    fontWeight: '500',
+  },
 })
-
