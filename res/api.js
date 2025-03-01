@@ -1,6 +1,11 @@
 // export const baseUrl = "https://basheq-server.onrender.com"
 export const baseUrl = "https://basheq-server.onrender.com"
 
+export const Findproducts = async () => {
+    const url = "/Findproducts";
+
+    return await fetchApi(url, "POST",);
+};
 
 export const login = async (body) => {
     const url = "/Login";

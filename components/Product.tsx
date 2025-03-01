@@ -11,7 +11,7 @@ const Product = (props) => {
       nav.navigate('Screen2', { data })
     }}>
       <View style={styles.imageContainer}>
-        <Image style={styles.image} source={props.imag} />
+        <Image style={styles.image} source={{ uri: props?.img }} />
       </View>
       <View style={styles.infoContainer}>
         <Text style={styles.number}>{props.number}</Text>
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff", // خلفية بيضاء أنيقة
     borderRadius: 20, // حواف مستديرة بزاوية أكبر
     padding: 15,
-    shadowColor: "#000", 
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.15,
     shadowRadius: 10,

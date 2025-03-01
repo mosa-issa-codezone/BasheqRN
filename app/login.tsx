@@ -4,8 +4,8 @@ import { useNavigation } from 'expo-router'
 import { login } from '@/res/api'
 
 const Login = () => {
-  const [phone, setPhone] = useState('')
-  const [password, setPassword] = useState("")
+  const [phone, setPhone] = useState('123456789')
+  const [password, setPassword] = useState("123456789")
 
   const nav = useNavigation()
 

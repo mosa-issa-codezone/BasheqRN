@@ -1,47 +1,67 @@
-import { Pressable, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
-import { useLocalSearchParams } from 'expo-router'
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import React, { useContext, useState } from "react";
+import { router, useLocalSearchParams } from "expo-router";
+import StoreContext from "@/store/StoreContext";
 
 const Screen2 = (props) => {
-  const [x, setX] = useState(1)
-  const {data} = useLocalSearchParams?.()
-  const route = data ? JSON.parse(data) : {}
-  console.log("hellow screen2", data)
+  const [x, setX] = useState(1);
+  const { data } = useLocalSearchParams?.();
+  const route = data ? JSON.parse(data) : {};
+  console.log("hellow screen2", data);
+  const { cart, setCart } = useContext(StoreContext);
+
+  const handleAddToCart = () => {
+    const cartList = cart;
+    cartList.push(route);
+    setCart(cartList);
+    router.replace("/cart");
+  };
 
   return (
     <View style={styles.container}>
-      <Image source={route.imag} style={styles.image} />
+      <Image source={{ uri: route.img }} style={styles.image} />
       <Text style={styles.priceText}>{route.price}₪</Text>
 
       <View style={styles.quantityContainer}>
         <Pressable onPress={() => setX(x + 1)}>
           <Text style={styles.quantityText}>+</Text>
-        </Pressable>    
+        </Pressable>
 
         <Text style={styles.quantityText}>{x}</Text>
 
-        <Pressable onPress={() => { if (x > 0) setX(x - 1) }}>     
+        <Pressable
+          onPress={() => {
+            if (x > 0) setX(x - 1);
+          }}
+        >
           <Text style={styles.quantityText}>-</Text>
         </Pressable>
       </View>
 
       <Text style={styles.numberText}>{route.number}</Text>
       <Text style={styles.totalPrice}>{route.price * x}₪</Text>
-      
-      <TouchableOpacity style={styles.addButton}>
-        <Text style={styles.addButtonText}>הוסף לעגלה</Text>
-      </TouchableOpacity> 
-    </View>
-  )
-}
 
-export default Screen2
+      <TouchableOpacity onPress={handleAddToCart} style={styles.addButton}>
+        <Text style={styles.addButtonText}>הוסף לעגלה</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+export default Screen2;
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#ffffff",
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
     padding: 30,
   },
   image: {
@@ -49,24 +69,24 @@ const styles = StyleSheet.create({
     width: 320,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: "#e0e0e0",
     marginBottom: 25,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.1,
     shadowRadius: 10,
   },
   priceText: {
     fontSize: 26,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: "#333",
     marginBottom: 15,
   },
   quantityContainer: {
     flexDirection: "row",
     width: 160,
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 20,
   },
   quantityText: {
@@ -84,7 +104,7 @@ const styles = StyleSheet.create({
   },
   totalPrice: {
     fontSize: 26,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: "#e60023",
     marginBottom: 20,
   },
@@ -98,6 +118,6 @@ const styles = StyleSheet.create({
   addButtonText: {
     color: "#fff",
     fontSize: 22,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
-})
+});

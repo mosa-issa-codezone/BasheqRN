@@ -1,35 +1,54 @@
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import Product from '@/components/Product'
 import { contact } from '@/components/res/data'
 import { Ionicons } from '@expo/vector-icons'
-import { useNavigation } from 'expo-router'
+import { router, useNavigation } from 'expo-router'
+import { Findproducts } from '@/res/api'
 
 const Home = () => {
   const nav = useNavigation()
-  
+  const [products, setProducts] = useState([])
+
   const renderData = () => {
-    return contact.map((item, index) => (
+    return products.map((item, index) => (
       <Product
         key={index}
         number={item.number}
         price={item.price}
-        imag={item.imag}
+        img={item.img}
       />
     ))
   }
+
+  const getPruductApi = () => {
+    Findproducts().then((value) => {
+      console.log("value", value.data);
+      setProducts(value.data)
+    })
+  }
+
+  useEffect(() => {
+    getPruductApi()
+  }, [])
 
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => { nav.navigate("cart") }}>
+          <TouchableOpacity onPress={() => { router.replace("/cart") }}>
             <Ionicons name='cart-outline' size={30} color="#fff" />
           </TouchableOpacity>
           <Text style={styles.title}>מסך הבית</Text>
         </View>
         <View style={styles.productContainer}>
-          {renderData()}
+
+          {
+            products?.length ?
+              renderData()
+              :
+              <ActivityIndicator size={'large'} />
+          }
         </View>
       </ScrollView>
     </View>
@@ -77,4 +96,3 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
 })
- 
